@@ -8,6 +8,7 @@ string animalNickname = "";
 
 // variables that support data entry
 int maxPets = 8;
+int petCount = 0;
 string? readResult;
 string menuSelection = "";
 
@@ -19,59 +20,58 @@ string[,] ourAnimals = new string[maxPets, 6];
 // create some initial ourAnimals array entries
 for (int i = 0; i < maxPets; i++)
 {
-    if (i == 0)
-    {
+    switch (i){
+    case 0:
         animalSpecies = "dog";
         animalID = "d1";
         animalAge = "2";
         animalPhysicalDescription = "medium sized cream colored female golden retriever weighing about 65 pounds. housebroken.";
         animalPersonalityDescription = "loves to have her belly rubbed and likes to chase her tail. gives lots of kisses.";
         animalNickname = "lola";
-    }
-    else if (i == 1)
-    {
+    break;
+    case 1:
         animalSpecies = "dog";
         animalID = "d2";
         animalAge = "9";
         animalPhysicalDescription = "large reddish-brown male golden retriever weighing about 85 pounds. housebroken.";
         animalPersonalityDescription = "loves to have his ears rubbed when he greets you at the door, or at any time! loves to lean-in and give doggy hugs.";
         animalNickname = "loki";
-    }
-    else if (i == 2)
-    {
+    break;
+    case 2:
         animalSpecies = "cat";
         animalID = "c3";
         animalAge = "1";
         animalPhysicalDescription = "small white female weighing about 8 pounds. litter box trained.";
         animalPersonalityDescription = "friendly";
         animalNickname = "Puss";
-    }
-    else if (i == 3)
-    {
+        break;
+
+    case 3:
         animalSpecies = "cat";
         animalID = "c4";
         animalAge = "?";
         animalPhysicalDescription = "";
         animalPersonalityDescription = "";
         animalNickname = "";
-    }
-    else
-    {
+        break;
+    case default:
         animalSpecies = "";
         animalID = "";
         animalAge = "";
         animalPhysicalDescription = "";
         animalPersonalityDescription = "";
         animalNickname = "";
+        break;
     }
-
     ourAnimals[i, 0] = "ID #: " + animalID;
     ourAnimals[i, 1] = "Species: " + animalSpecies;
     ourAnimals[i, 2] = "Age: " + animalAge;
     ourAnimals[i, 3] = "Nickname: " + animalNickname;
     ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
     ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
+   
 }
+petCount = 4;
 
 // display the top-level menu options
 
@@ -94,12 +94,40 @@ if (readResult != null)
 {
     menuSelection = readResult.ToLower();
 }
+    switch (menuSelection){
+    case "1":break;
+    case "2":
 
-Console.WriteLine($"You selected menu option {menuSelection}.");
-Console.WriteLine("Press the Enter key to continue");
+    if (petCount>=maxPets){
+        Console.WriteLine("No more space for pets");
+        break;
+    }
+    Console.WriteLine("Enter Species");
+    animalSpecies = Console.ReadLine();
 
-// pause code execution
-readResult = Console.ReadLine();
+    Console.WriteLine("Enter Age");
+    animalAge = Console.ReadLine();
+
+    Console.WriteLine("Enter Nickname");
+    animalNickname = Console.ReadLine();
+
+    Console.WriteLine("Enter physical description");
+    animalPhysicalDescription = Console.ReadLine();
+
+    Console.WriteLine("Enter physical description");
+    animalPersonalityDescription = Console.ReadLine();
+
+    ourAnimals[petCount, 0] = "ID #: " + animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
+    ourAnimals[petCount, 1] = "Species: " + animalSpecies != null ? animalSpecies : "?";
+    ourAnimals[petCount, 2] = "Age: " + animalAge != null ? animalAge : "?";
+    ourAnimals[petCount, 3] = "Nickname: " + animalNickname != null ? animalNickname : "?";
+    ourAnimals[petCount, 4] = "Physical description: " + animalPhysicalDescription != null ? animalPhysicalDescription : "?";
+    ourAnimals[petCount, 5] = "Personality: " + animalPersonalityDescription != null ? animalPersonalityDescription : "?";
+    petCount++;
+
+    break;
+}
+
 
 //Final code
 
